@@ -1,3 +1,7 @@
+import DZ2.Car;
+import DZ2.Motorcycle;
+import DZ2.Vehicle;
+import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -5,46 +9,53 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VehicleTest {
+    Car car;
+    Motorcycle motorcycle;
 
     @BeforeEach
     void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void testDrive() {
+        car = new Car("Mercedes-Benz", "EQS_580", 2019);
+        motorcycle = new Motorcycle("Honda", "S500", 2021);
     }
 
     @Test
-    void park() {
+    void testClassCar() {
+        assertThat(car instanceof Vehicle).isEqualTo(true);
     }
 
     @Test
-    void getCompany() {
+    void testCountWheelsCar() {
+        assertThat(car.getNumWheels()).isEqualTo(4);
     }
 
     @Test
-    void getModel() {
+    void testCountWheelsMotorcycle() {
+        assertThat(motorcycle.getNumWheels()).isEqualTo(2);
     }
 
     @Test
-    void getYearRelease() {
+    void testTestDriveCar() {
+        car.testDrive();
+        assertThat(car.getSpeed()).isEqualTo(60);
     }
 
     @Test
-    void getNumWheels() {
+    void testTestDriveMotorcycle() {
+        motorcycle.testDrive();
+        assertThat(motorcycle.getSpeed()).isEqualTo(75);
     }
 
     @Test
-    void getSpeed() {
+    void testParkDriveCar() {
+        car.testDrive();
+        car.park();
+        assertThat(car.getSpeed()).isEqualTo(0);
     }
 
     @Test
-    void testToString() {
+    void testParkDriveMotorcycle() {
+        motorcycle.testDrive();
+        motorcycle.park();
+        assertThat(motorcycle.getSpeed()).isEqualTo(0);
     }
-
-
 }
