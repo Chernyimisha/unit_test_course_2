@@ -1,4 +1,4 @@
-package src.DZ2;
+package DZ2;
 
 public abstract class Vehicle {
     private String company;
