@@ -9,7 +9,11 @@ public class UserRepository {
     List<User> data = new ArrayList<>();
 
     public void addUser(User user) {
-       //..
+       data.add(user);
+    }
+
+    public void deleteUserNotAdmin() {
+        data.removeIf(user -> !user.isAdmin);
     }
 
     public boolean findByName(String username) {
