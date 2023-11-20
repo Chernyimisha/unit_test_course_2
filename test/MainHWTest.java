@@ -25,4 +25,17 @@ public class MainHWTest {
     void evenOddNumberNotEvenTest(int n) {
         assertThat(mainHW.evenOddNumber(n)).isEqualTo(false);
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = {26, 50, 70, 99})
+    void numberInIntervalTest(int n) {
+        assertThat(mainHW.numberInInterval(n)).isEqualTo(true);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {25, 1, 100, 105})
+    void numberNotInIntervalTest(int n) {
+        assertThat(mainHW.numberInInterval(n)).isEqualTo(false);
+    }
+
 }

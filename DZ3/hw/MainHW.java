@@ -15,8 +15,7 @@ public class MainHW {
     // покрыть тестами метод на 100%
 
     public boolean numberInInterval(int n) {
-
-        return false;
+        return n > 25 && n < 100;
     }
 
 }
