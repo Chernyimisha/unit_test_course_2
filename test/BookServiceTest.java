@@ -1,36 +1,51 @@
 import DZ4.book.Book;
 import DZ4.book.BookRepository;
 import DZ4.book.BookService;
+import DZ4.book.InMemoryBookRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.ARRAY;
 import static org.mockito.Mockito.*;
 
 public class BookServiceTest {
 
-    BookRepository bookRepository;
+    InMemoryBookRepository inMemoryBookRepository;
+
+    @BeforeEach
+    void setUp(){
+        inMemoryBookRepository = mock(InMemoryBookRepository.class);
+    }
 
 
     @Test
     void findBookByIdTest(){
-        Book book1 = new Book("1", "testTitle1", "testAuthor1");
-        Book book2 = new Book("2", "testTitle2", "testAuthor2");
-        Book book3 = new Book("3", "testTitle3", "testAuthor3");
+        Book book1 = new Book("1", "Book1", "Author1");
+        Book book2 = new Book("2", "Book2", "Author2");
+        BookService bookService = new BookService(inMemoryBookRepository);
 
-        bookRepository = mock(BookRepository.class);
-        when(bookRepository.findById("1")).thenReturn(book1);
-        when(bookRepository.findById("2")).thenReturn(book2);
-        when(bookRepository.findById("3")).thenReturn(book3);
+        when(inMemoryBookRepository.findById("1")).thenReturn(book1);
+        when(inMemoryBookRepository.findById("2")).thenReturn(book2);
 
-        BookService bookService = new BookService(bookRepository);
         assertThat(bookService.findBookById("1")).isEqualTo(book1);
         assertThat(bookService.findBookById("2")).isEqualTo(book2);
-        assertThat(bookService.findBookById("3")).isEqualTo(book3);
-        verify(bookRepository, times(1)).findById("1");
-
+        verify(inMemoryBookRepository, times(1)).findById("1");
     }
 
+    @Test
+    void findAllBooksTest(){
 
+        Book book1 = new Book("1", "Book1", "Author1");
+        Book book2 = new Book("2", "Book2", "Author2");
+        BookService bookService = new BookService(inMemoryBookRepository);
+
+        when(inMemoryBookRepository.findAll()).thenReturn(Arrays.asList(book1, book2));
+
+        assertThat(bookService.findAllBooks()).isEqualTo(Arrays.asList(book1, book2));
+        verify(inMemoryBookRepository, times(1)).findAll();
+    }
 
 }
